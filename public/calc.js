@@ -1,25 +1,44 @@
-
 $(document).ready(function() {
   console.log('test');
-  $('number').on('click', function(e) {
-    e.preventDefault();
-    //  $('#clear');
-     console.log($('number').text());
-     console.log('hi');
+  var val = 0;
+  var val2 = 0;
+  var tval = 0;
+  var op = null;
+  $('.number').on('click', function() {
+     val = $(this).text();
+     if (tval === 0) {
+       tval = val;
+     }
+     else {
+       tval = tval + val
+     }
+     $('#display').text(tval);
+
   });
-  $('#clear').on('click', function(e) {
+  $('.operator').on('click', function() {
+     if ($(this).text() !== '=') {
+     op = $(this).text();
+     $('#display').text(op);
+     val2 = tval;
+     tval = 0;
+      }
+  });
+  $('#clear').on('click', function() {
     $('#display').text('');
+  });
+  $('#equals').on('click', function() {
+    calc(op, val2, tval);
   });
 });
 
 var calc = function(oper, value1, value2) {
   var total = 0;
   switch (oper) {
-    case '+': total = value1 + value2;
+    case '+': total = parseFloat(value1) + parseFloat(value2);
       break;
     case '-': total = value1 - value2;
       break;
-    case '*': total = value1 * value2;
+    case 'X': total = value1 * value2;
       break;
     case '/': total = value1 / value2;
       break;
